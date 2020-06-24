@@ -196,19 +196,20 @@ const functions = {
                     message: "What department would you like to add?"
                 }
             ]).then (function(data){
-                let newDepartment;
+                let ckDepartment;
                 for (i = 0; i < result.length; i ++) {
                     if(result[i].name === data.department) {
-                        newDepartment = result[i].name
+                        ckDepartment = result[i].name
                     };
                 };
-                if ( newDepartment === data.department) {
+                if ( ckDepartment === data.department) {
                     console.log("The department already exists. Please enter a new department.");
                     functions.viewDepartments();
                 }else {
-                    const query = "INSERT INTO depart SET ?";
-                    connection.query(query, {name: data.department}, (err, result) => {
+                    const query = "INSERT INTO department SET ?";
+                    connection.query(query, {name:data.department}, (err, result) => {
                         if (err) throw err;
+                        console.table(result);
                         functions.viewDepartments();
                     });
                 };
@@ -235,7 +236,7 @@ const functions = {
     },
 
     viewDepartments: () => {
-        const query = "SELECT * from department";
+        const query = "SELECT * FROM department";
         connection.query(query, (err, result) => {
             if (err) throw err,
             console.table(result);
