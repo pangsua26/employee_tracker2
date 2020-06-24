@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: " ",
+    password: "root",
     database: "employees_db"
 
 });
@@ -116,6 +116,14 @@ const functions = {
                         titleSelect = result[i];
                     };
                 };
+                let managerSelect;
+                for (i = 0; i < result.length; i++) {
+                    if ((result[i].first_name + " " + result[i].last_name) === data.manager) {
+                        managerSelect = result[i].first_name + " " + result[i], last_name;
+                    }else {
+                        managerSelect = data.manager;
+                    };
+                };
                 const query = "INSERT INTO employee SET ?";
                 const set = {
                     first_name: data.first_name,
@@ -142,7 +150,7 @@ const functions = {
             if (err) throw err;
             inquirer.prompt([
                 {
-                    name: "role",
+                    name: "title",
                     type: "input",
                     message: "What is the employee's role?",
                 },
@@ -158,22 +166,22 @@ const functions = {
                     choices: result
                 }
             ]).then(function(data){
-                let selection;
+                let select;
                 for (i = 0; i < result.length; i++) {
                     if (result[i].name === data.department){
-                        selection = result[i];
+                        select = result[i];
                     };
                 };
-            });
-            const query = "INSERT INTO role SET ?";
-            const set = {
-                title: data.title,
-                salary: data.salary,
-                department_id: selection.id
-            };
-            connection.query(query, set, (err) =>{
-                if (err) throw err;
-                functions.viewRole();
+                const query = "INSERT INTO role SET ?";
+                const set = {
+                    title: data.title,
+                    salary: data.salary,
+                    department_id: select.id
+                };
+                connection.query(query, set, (err) => {
+                    if (err) throw err;
+                    functions.viewRoles();
+                });
             });
         }); 
     },
@@ -209,7 +217,7 @@ const functions = {
     },
 
     viewEmployee: () => {
-        const query = "SELECT employee.id, first_name, last_name, title, name, salary, manager_id FROM department JOINrole ON department.id = role.department_id JOIN employee ON role.id = employee.role_id";
+        const query = "SELECT employee.id, first_name, last_name, title, name, salary, manager_id FROM department JOIN role ON department.id = role.department_id JOIN employee ON role.id = employee.role_id";
         connection.query(query, (err, result) =>{
             if (err) throw err;
             console.table(result);
@@ -237,10 +245,10 @@ const functions = {
 
     updateEmployeeRole: () => {
         const initQuery = "SELECT * FROM employee";
-        connection.query(initQuery, function(err, result) {
+        connection.query(initQuery, function(err, result1) {
             if (err) throw err;
             let empArray = [];
-            for (var i = 0; i < result.length; i++) {
+            for (var i = 0; i < result1.length; i++) {
                 name = result1[i].first_name + " " + result1[i].last_name;
                 empArray.push(name);
             };
