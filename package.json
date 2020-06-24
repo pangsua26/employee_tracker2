@@ -1,0 +1,23 @@
+{
+  "name": "employee_tracker",
+  "version": "1.0.0",
+  "description": "Employee tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pangsua26/employee_tracker.git"
+  },
+  "author": "pangsua vang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pangsua26/employee_tracker/issues"
+  },
+  "homepage": "https://github.com/pangsua26/employee_tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.2.0",
+    "mysql": "^2.18.1"
+  }
+}
