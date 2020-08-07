@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "root",
+    password: "Pava850$",
     database: "employees_db"
 
 });
@@ -186,7 +186,7 @@ const functions = {
         }); 
     },
     addDepartment: () => {
-        const initQuery = "SELECT * from department";
+        const initQuery = "SELECT * FROM department";
         connection.query(initQuery, function(err, result){
             if (err) throw err;
             inquirer.prompt([
@@ -196,13 +196,13 @@ const functions = {
                     message: "What department would you like to add?"
                 }
             ]).then (function(data){
-                let ckDepartment;
+                let newDepartment;
                 for (i = 0; i < result.length; i ++) {
                     if(result[i].name === data.department) {
-                        ckDepartment = result[i].name
+                        newDepartment = result[i].name
                     };
                 };
-                if ( ckDepartment === data.department) {
+                if (newDepartment === data.department) {
                     console.log("The department already exists. Please enter a new department.");
                     functions.viewDepartments();
                 }else {

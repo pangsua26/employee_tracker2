@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS employees_db;
-CREATE database employees_db;
+CREATE DATABASE employees_db;
 
 USE employees_db;
 
@@ -23,5 +23,7 @@ role_id INTEGER NOT NULL,
 manager_id VARCHAR(30) DEFAULT "none"
 );
 
-
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee;
 

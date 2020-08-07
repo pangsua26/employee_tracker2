@@ -1,6 +1,6 @@
 USE employees_db;
 
-INSERT INTO department (department_id)
+INSERT INTO department (name)
 VALUES ("Sales"), ("Engineering"), ("Finance"), ("Legal");
 
 INSERT INTO role (title, salary, department_id)
